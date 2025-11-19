@@ -1,6 +1,7 @@
-import sys
 import math
 import random
+import sys
+
 import pygame
 
 # ---------------------------
@@ -24,6 +25,7 @@ BALL_SPEED_INCREMENT = 0.25  # Sedikit meningkat tiap pantulan paddle
 WHITE = (240, 240, 240)
 BLACK = (15, 15, 20)
 GREY = (80, 80, 90)
+
 
 # ---------------------------
 # Kelas Game Object
@@ -99,6 +101,7 @@ class Ball:
         self.vx = direction * self.speed * math.cos(angle)
         self.vy = self.speed * math.sin(angle)
 
+
 # ---------------------------
 # Fungsi Gambar Net Tengah
 # ---------------------------
@@ -108,6 +111,7 @@ def draw_center_net(surface):
     x = WIDTH // 2 - 2
     for y in range(0, HEIGHT, segment_h + gap):
         pygame.draw.rect(surface, GREY, pygame.Rect(x, y, 4, segment_h))
+
 
 # ---------------------------
 # Main Game
@@ -191,7 +195,9 @@ def main():
             # Koreksi posisi agar tidak masuk ke paddle
             ball.rect.left = player.rect.right
             # Offset relatif -1..1
-            offset = (ball.rect.centery - player.rect.centery) / (player.rect.height / 2)
+            offset = (ball.rect.centery - player.rect.centery) / (
+                player.rect.height / 2
+            )
             offset = max(-1.0, min(1.0, offset))
             ball.bounce_x(offset)
 
@@ -206,7 +212,9 @@ def main():
         # Bola keluar kiri -> AI skor
         if ball.rect.right < 0:
             score_ai += 1
-            ball.reset(direction=1)  # serve ke kanan (ke arah AI), bola mulai dari tengah
+            ball.reset(
+                direction=1
+            )  # serve ke kanan (ke arah AI), bola mulai dari tengah
 
         # Bola keluar kanan -> Player skor
         if ball.rect.left > WIDTH:
